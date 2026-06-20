@@ -98,17 +98,31 @@ python -m unittest discover -s python/tests
 
 Local persistence uses `WORKFLOW_STORAGE_PATH` when `MONGODB_URI` is not configured. Do not commit real borrower data.
 
-## Deploy Frontend To Vercel
+## Deploy Frontend And API Routes To Vercel
 
 ```bash
-vercel deploy frontend -y
+vercel deploy frontend --prod --scope <uttarala-ruthvik-vercel-scope> -y
 ```
 
-The frontend is designed for Vercel preview deployments. Set production environment variables in Vercel if the app is connected to a live backend.
+The production target for Ruthvik's personal deployment is the `Uttarala Ruthvik` Vercel workspace and the `guidelightlabs-frontend` project. The Next.js app includes non-AWS backend routes under `frontend/app/api`, including:
 
-## Deploy Backend To AWS Lambda
+- `POST /api/workflows`
+- `POST /api/rate-lock`
 
-The Lambda handler lives in `lambda/handler.js` and shares the same workflow engine shape as the Node service.
+Set production environment variables in Vercel if the app is connected to live MongoDB or external services.
+
+## AWS Lambda Deployment Status
+
+AWS deployment is pending. Do not deploy this project to AWS until Ruthvik provides the new personal AWS account details. The Lambda-compatible handler remains in the repository at `lambda/handler.js` so the workflow engine can be deployed later without changing the app contract.
+
+When the correct AWS account is available, the required external inputs are:
+
+- AWS account ID for the new personal account.
+- AWS region.
+- IAM Lambda execution role ARN.
+- Permission to create or update the Lambda function and any API Gateway or Function URL endpoint.
+
+Reference commands for later only:
 
 ```bash
 cd lambda
@@ -122,15 +136,7 @@ aws lambda create-function \
   --zip-file fileb://function.zip
 ```
 
-For updates:
-
-```bash
-aws lambda update-function-code \
-  --function-name mortgageflowai-workflow-engine \
-  --zip-file fileb://function.zip
-```
-
-Required external inputs are AWS credentials, region, and an IAM role with Lambda execution permissions. The repo does not contain credentials.
+The repo does not contain AWS credentials.
 
 ## MongoDB And Oracle Fit
 
