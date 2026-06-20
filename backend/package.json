@@ -1,0 +1,13 @@
+{
+  "name": "mortgageflowai-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "mongodb": "^6.16.0"
+  }
+}

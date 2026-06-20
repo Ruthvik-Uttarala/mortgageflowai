@@ -1,0 +1,20 @@
+{
+  "name": "mortgageflowai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-style mortgage workflow automation platform by Ruthvik Uttarala.",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "lambda"
+  ],
+  "overrides": {
+    "postcss": "8.5.15"
+  },
+  "scripts": {
+    "build": "npm run build --workspace frontend",
+    "dev": "npm run dev --workspace frontend",
+    "test": "npm run test --workspace backend",
+    "smoke": "npm run build --workspace frontend && npm run test --workspace backend && python -m unittest discover -s python/tests"
+  }
+}
